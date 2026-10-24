@@ -1,0 +1,19 @@
+# 构建产物
+build/
+dist/
+*.idsig
+*.keystore
+
+# Python
+__pycache__/
+*.pyc
+
+# 本地补丁包（体积大且与 App 版本绑定，不进仓库）
+nightpearl_patched*.apk
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 第三方编译期依赖（自行下载）
+lib/*.jar
