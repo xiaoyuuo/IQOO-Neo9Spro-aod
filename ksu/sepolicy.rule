@@ -1,0 +1,12 @@
+# 让「熄屏显示」的读取在假面板能力文件上不被 SELinux 拦
+# 背景：/sys/lcm/aod_disp_info 被 bind mount 成 /data 下的副本后，标签是 adb_data_file，
+#       nightpearl / systemuiplugin 读取会被拒（avc denied getattr），导致读取失败、
+#       回退到"不支持全屏"的分支（表现为亮度先最暗再抬一档）。
+allow platform_app adb_data_file file { getattr open read map }
+allow untrusted_app adb_data_file file { getattr open read map }
+allow untrusted_app_25 adb_data_file file { getattr open read map }
+allow untrusted_app_27 adb_data_file file { getattr open read map }
+allow untrusted_app_29 adb_data_file file { getattr open read map }
+allow untrusted_app_30 adb_data_file file { getattr open read map }
+allow untrusted_app_32 adb_data_file file { getattr open read map }
+allow untrusted_app_34 adb_data_file file { getattr open read map }
