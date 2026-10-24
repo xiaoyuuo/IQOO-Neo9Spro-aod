@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dsh.neoaod"
+    android:versionCode="11"
+    android:versionName="2.4">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="36" />
+
+    <application
+        android:allowBackup="false"
+        android:hasCode="true"
+        android:label="Neo9SP_aod">
+
+        <meta-data android:name="xposedmodule" android:value="true" />
+        <meta-data android:name="xposeddescription"
+            android:value="让 iQOO Neo9S Pro 用上全屏熄屏（全天候 AOD）：绕过熄屏显示的机型白名单与 SystemUI 的全屏判定，属性与面板能力串由 KSU 模块负责。｜作者：酷安@小雨爱分享" />
+        <meta-data android:name="xposedminversion" android:value="82" />
+        <meta-data android:name="xposedsharedprefs" android:value="true" />
+        <meta-data android:name="xposedscope" android:resource="@array/xposedscope" />
+    </application>
+</manifest>
