@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="xposedscope">
+        <item>com.vivo.nightpearl</item>
+    </array>
+</resources>

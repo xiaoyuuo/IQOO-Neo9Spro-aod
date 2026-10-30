@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="12"
+    android:versionName="2.5"
+    android:compileSdkVersion="36"
+    android:compileSdkVersionCodename="16"
+    package="com.dsh.neoaod"
+    platformBuildVersionCode="36"
+    platformBuildVersionName="16">
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-sdk
+        android:minSdkVersion="29"
+        android:targetSdkVersion="36"/>
+    <application
+        android:label="Neo9SP_AOD"
+        android:hasCode="true"
+        android:allowBackup="false">
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true"/>
+        <meta-data
+            android:name="xposeddescription"
+            android:value="版本：v2.5&#10;作者：KA：@小雨爱分享&#10;开启系统隐藏息屏AOD界面ui。&#10;熄屏不是落幕，是留给往事的留白。&#10;长夜漫过屏幕，微光替我念想。"/>
+        <meta-data
+            android:name="xposedminversion"
+            android:value="82"/>
+        <meta-data
+            android:name="xposedsharedprefs"
+            android:value="true"/>
+        <meta-data
+            android:name="xposedscope"
+            android:resource="@array/xposedscope"/>
+    </application>
+</manifest>
