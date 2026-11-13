@@ -5,16 +5,16 @@ MARKET=$(getprop ro.vivo.market.name)
 VER=$(getprop ro.vivo.product.version)
 
 ui_print "*********************************************"
-ui_print " Neo9SP_aod  v2.1"
+ui_print " Neo9SP_aod  v8.2"
 ui_print " 机型    : $MODEL / $MARKET"
 ui_print " 版本    : $VER"
 ui_print " 做法    : resetprop 写全屏AOD开关属性"
 ui_print "           + bind mount 面板能力文件（chcon 对齐标签）"
-ui_print "           需配合 LSPosed 模块「Neo9SP_aod」一起使用"
+ui_print "           + 亮度守卫 + AOD 阶梯变暗/熄屏"
 ui_print "*********************************************"
 
 case "$MODEL" in
-    PD2339*|V2338*)
+    PD2339*|V2338*|V2339*)
         ui_print "- 机型匹配 (Neo9S Pro)，继续安装"
         ;;
     "")
@@ -31,3 +31,5 @@ set_perm "$MODPATH/post-fs-data.sh" 0 0 0755
 set_perm "$MODPATH/service.sh" 0 0 0755
 set_perm "$MODPATH/action.sh" 0 0 0755
 set_perm "$MODPATH/uninstall.sh" 0 0 0755
+set_perm "$MODPATH/guard.sh" 0 0 0755
+set_perm "$MODPATH/aodkeep.sh" 0 0 0755

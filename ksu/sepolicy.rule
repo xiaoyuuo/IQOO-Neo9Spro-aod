@@ -1,8 +1,15 @@
 # 让「熄屏显示」的读取在假面板能力文件上不被 SELinux 拦
 # 背景：/sys/lcm/aod_disp_info 被 bind mount 成 /data 下的副本后，标签是 adb_data_file，
 #       nightpearl / systemuiplugin 读取会被拒（avc denied getattr），导致读取失败、
-#       回退到"不支持全屏"的分支（表现为亮度先最暗再抬一档）。
+#       回退到"不支持全屏"的分支（表现为亮度先最暗再抬一档，解锁后亮度卡住不回落）。
+#
+# v3.0：关键补丁 —— com.vivo.nightpearl 的 AndroidManifest 带 sharedUserId="android.uid.system"，
+#       进程跑在 system_app 域，不是 platform_app。原规则只放行 platform_app/untrusted_app，
+#       所以「熄屏显示」本体一直读不到伪造的面板串，只有 SystemUI 插件能读到，
+#       这就是两处判断不一致、亮度错位的来源。
+allow system_app adb_data_file file { getattr open read map }
 allow platform_app adb_data_file file { getattr open read map }
+allow priv_app adb_data_file file { getattr open read map }
 allow untrusted_app adb_data_file file { getattr open read map }
 allow untrusted_app_25 adb_data_file file { getattr open read map }
 allow untrusted_app_27 adb_data_file file { getattr open read map }
@@ -10,3 +17,18 @@ allow untrusted_app_29 adb_data_file file { getattr open read map }
 allow untrusted_app_30 adb_data_file file { getattr open read map }
 allow untrusted_app_32 adb_data_file file { getattr open read map }
 allow untrusted_app_34 adb_data_file file { getattr open read map }
+
+# v5.5：允许 KSU 的 su 域把 /data 副本 relabel 成真节点的类型
+# 真节点 /sys/lcm/aod_disp_info 的标签是 u:object_r:sysfs_oled_hbm:s0
+# （见 vendor/etc/selinux/vendor_file_contexts），
+# 之前 chcon 到该类型被拒，副本只能退到 vendor_file。
+allow ksu adb_data_file file relabelfrom
+allow ksu sysfs_oled_hbm file relabelto
+
+# v5.7：不管副本最终被打成哪个标签，都让「熄屏显示」(system_app) 与
+# SystemUI 插件 (platform_app) 能读。这样 e0() 不再依赖 chcon 是否成功。
+allow system_app vendor_file file { getattr open read map }
+allow system_app system_file file { getattr open read map }
+allow system_app system_data_file file { getattr open read map }
+allow platform_app vendor_file file { getattr open read map }
+allow platform_app system_file file { getattr open read map }
